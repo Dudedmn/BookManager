@@ -55,7 +55,7 @@ public class BookController {
     /**
      * Find the first occurrence of a Book with a isbn
      * @param isbn - isbn of Book to find
-     * @return - first occurrenc of Book found with isbn
+     * @return - first occurrence of Book found with isbn
      */
     @GetMapping("/{isbn}")
     public ResponseEntity<Book> findBookByIsbn(@PathVariable int isbn) {
@@ -124,10 +124,7 @@ public class BookController {
     public ResponseEntity updateBook(@PathVariable int isbn, @RequestBody Book book) {
         try {
             ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
-            if (book.getIsbn() != isbn) {
-                response = new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
-            }
-            else if(bDao.updateBook(book)) {
+            if(bDao.updateBook(isbn, book)) {
                 response = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
             return response;
@@ -198,10 +195,7 @@ public class BookController {
                                      @RequestParam("author") String author) {
         try {
             ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
-            if (isbn != newIsbn) {
-                response = new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
-            }
-            else if(bDao.updateBook(isbn, newIsbn, title, author)) {
+            if(bDao.updateBook(isbn, newIsbn, title, author)) {
                 response = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
             return response;
@@ -233,10 +227,7 @@ public class BookController {
     public ResponseEntity updateAllBooks(@PathVariable int isbn, @RequestBody Book book) {
         try {
             ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
-            if (book.getIsbn() != isbn) {
-                response = new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
-            }
-            else if(bDao.updateAllBooks(isbn, book)) {
+           if(bDao.updateAllBooks(isbn, book)) {
                 response = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
             return response;
@@ -274,10 +265,7 @@ public class BookController {
                                      @RequestParam("author") String author) {
         try{
                 ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
-            if (isbn != newIsbn) {
-                response = new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
-            }
-            else if(bDao.updateAllBooks(isbn, newIsbn, title, author)){
+            if(bDao.updateAllBooks(isbn, newIsbn, title, author)){
                 response = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
                 return response;
@@ -416,6 +404,29 @@ public class BookController {
         }
         finally {
             return null;
+        }
+    }
+
+    /**
+     * Attempts to delete all Books with the same isbn
+     * @return - HTTP Response status
+     */
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity deleteAll() {
+        try{
+            bDao.deleteAll();
+        }
+        catch (MethodArgumentTypeMismatchException e ) {
+            System.err.println("ARGUMENT_TYPE_MISMATCH_ERROR: " + e);
+        }
+        catch(HttpMessageNotReadableException e) {
+            System.err.println("HTTP_READABLE_ERROR: " + e);
+        }
+        catch(Exception e) {
+            System.err.println("ERROR: " + e);
+        }
+        finally {
+            return new ResponseEntity(HttpStatus.OK);
         }
     }
 }

@@ -21,7 +21,7 @@ public interface BookDao {
     List<Book> findAllBooksByIsbn(int isbn);
 
     // Updates a given Book object with another Book object
-    boolean updateBook(Book book);
+    boolean updateBook(int isbn, Book book);
 
     // Updates a given Book object with specific parameters
     boolean updateBook(int isbn, int newIsbn, String title, String author);
@@ -35,6 +35,9 @@ public interface BookDao {
     // Deletes the first retrieved book by isbn
     boolean deleteBookByISBN(int isbn);
 
-    // Deletes all found book with the same isbn
+    // Deletes all found Book with the same isbn
     boolean deleteAllBooksByISBN(int isbn);
+
+    // Delete all Book objects in the Collection
+    void deleteAll();
 }

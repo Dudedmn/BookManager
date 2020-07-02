@@ -78,8 +78,8 @@ public class BookService {
         return bookRepository.findAllBooksByIsbn(isbn);
     }
 
-    public boolean updateBook(Book book) {
-        return bookRepository.updateBook(book);
+    public boolean updateBook(int isbn, Book book) {
+        return bookRepository.updateBook(isbn, book);
     }
 
     public boolean updateBook(int isbn, int newIsbn, String title, String author) {
@@ -100,5 +100,9 @@ public class BookService {
 
     public boolean deleteAllBooksByISBN(int isbn) {
         return bookRepository.deleteAllBooksByISBN(isbn);
+    }
+
+    public void deleteAll() {
+        bookRepository.deleteAll();
     }
 }

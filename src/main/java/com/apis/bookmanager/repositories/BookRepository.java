@@ -5,12 +5,9 @@ import com.apis.bookmanager.models.Book;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository implements BookDao {
@@ -85,9 +82,9 @@ public class BookRepository implements BookDao {
      * @return true if a Book was updated
      */
     @Override
-    public boolean updateBook(Book book) {
+    public boolean updateBook(int isbn, Book book) {
         for(int i = 0; i < books.size(); i++) {
-            if(books.get(i).getIsbn() == book.getIsbn()) {
+            if(books.get(i).getIsbn() == isbn) {
                 books.get(i).setBook(book);
                 // Simply update the first occurrence
                 return true;
@@ -164,7 +161,12 @@ public class BookRepository implements BookDao {
      */
     @Override
     public boolean deleteBookByISBN(int isbn) {
-        return books.removeIf(b -> b.getIsbn() == isbn);
+        if(!books.contains(findBookByIsbn(isbn)))
+            return false;
+        else {
+            books.remove(findBookByIsbn(isbn));
+            return true;
+        }
     }
 
     /**
@@ -182,4 +184,11 @@ public class BookRepository implements BookDao {
         }
         return true;
     }
+
+    @Override
+    public void deleteAll() {
+        books.clear();
+    }
+
+
 }

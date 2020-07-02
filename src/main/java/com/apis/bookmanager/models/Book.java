@@ -108,20 +108,8 @@ public class Book {
         return String.format("  ISBN: %s%n Title: %s%n Author: %s%n", isbn, title, author);
     }
 
-    // lombok doesn't seem to recognize the following getters/setters
+    // Methods are fussy with this getter
     public int getIsbn() {
         return isbn;
-    }
-
-    public void setIsbn(int isbn) {
-        this.isbn = isbn;
-    }
-
-    public boolean isCheckedOut() {
-        return isCheckedOut;
-    }
-
-    public void setCheckedOut(boolean checkedOut) {
-        isCheckedOut = checkedOut;
     }
 }
