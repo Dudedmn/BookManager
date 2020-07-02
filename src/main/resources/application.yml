@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+management:
+  endpoints:
+    web:
+      base-path: /
+    exposure:
+      include: info,health,env,mappings,httptrace,conditions,logfile,beans,mappings
+  endpoint:
+    health:
+      show-details: always
+logging:
+  level:
+    com.apis.bookmanager: info
+    web: DEBUG
