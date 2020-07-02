@@ -15,7 +15,7 @@ public class Book {
      * Generate a Book based on provided parameters
      * @param title - title of Book
      * @param author - author of Book
-     * @param isbn - unique identifier for Book
+     * @param isbn - NON-UNIQUE identifier for Book
      */
     public Book(int isbn, String title, String author) {
         this.isbn = isbn;

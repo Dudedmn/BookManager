@@ -8,6 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version - 2020/07/02
  * Description: Simple Spring MvC Book Manager Application
  *
+ * This project makes the assumption that Book ISBNs are not a unique identifier.
+ * Duplicate Books can then be expected and are assumed within this Book Manager.
+ * An in-memory 'database' is used to store Book objects
+ *
+ * Expected class compilation ordering:
+ * Book > BookRepository > BookService > BookController
+ *
  * Primary features are tagged with @feature
  *
  * @feature - Add books to their collection

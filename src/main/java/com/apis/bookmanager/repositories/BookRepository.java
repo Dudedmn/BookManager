@@ -185,6 +185,9 @@ public class BookRepository implements BookDao {
         return true;
     }
 
+    /**
+     * Deletes all Books in the repository
+     */
     @Override
     public void deleteAll() {
         books.clear();

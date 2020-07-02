@@ -408,7 +408,7 @@ public class BookController {
     }
 
     /**
-     * Attempts to delete all Books with the same isbn
+     * Attempts to delete all Books
      * @return - HTTP Response status
      */
     @DeleteMapping("/deleteAll")
